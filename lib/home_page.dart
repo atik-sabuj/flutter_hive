@@ -18,7 +18,23 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: [
+          FutureBuilder(
+            future: Hive.openBox('Sabuj Atik'),
+              builder: (context, snapshot){
+                return Column(
+                  children: [
+                    ListTile(
+                      title: Text(snapshot.data!.get('name').toString()),
+                      subtitle: Text(snapshot.data!.get('age').toString()),
+                    ),
 
+                    // Text(snapshot.data!.get('name').toString()),
+                    // Text(snapshot.data!.get('age').toString()),
+                    // Text(snapshot.data!.get('details').toString()),
+
+                  ],
+                );
+              }),
         ],
       ),
 
@@ -30,8 +46,16 @@ class _HomePageState extends State<HomePage> {
           box.put('name', 'Sabuj Atik');
           box.put('age', '27');
 
+          box.put('details', {
+            'pro' : 'developer',
+            'salary' : '30k'
+          });
+
           print(box.get('name'));
           print(box.get('age'));
+          print(box.get('details'));
+          //print(box.get('details')['pro']);
+
         },
         child: Icon(Icons.add),
       ),
