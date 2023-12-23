@@ -29,13 +29,19 @@ class _HomePageState extends State<HomePage> {
                       trailing: IconButton(
                         onPressed: (){
                           snapshot.data!.put('name', 'Sabuj Atik Tech');
-                          snapshot.data!.put('age', '28');
+                          snapshot.data!.put('age', '27');
+
+                          //snapshot.data!.delete('name');    // For Data Delete
+
 
                           setState(() {
 
                           });
                         },
                         icon: Icon(Icons.edit),
+
+                        //icon: Icon(Icons.delete),     // For Data Delete
+
                       ),
                     ),
 
@@ -70,7 +76,7 @@ class _HomePageState extends State<HomePage> {
           box2.put('linkedIn', 'atik-sabuj');
 
           box.put('name', 'Sabuj');
-          box.put('age', '27');
+          box.put('age', '25');
 
           box.put('details', {
             'pro' : 'developer',
