@@ -19,13 +19,24 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           FutureBuilder(
-            future: Hive.openBox('Sabuj Atik'),
+            future: Hive.openBox('Sabuj'),
               builder: (context, snapshot){
                 return Column(
                   children: [
                     ListTile(
                       title: Text(snapshot.data!.get('name').toString()),
                       subtitle: Text(snapshot.data!.get('age').toString()),
+                      trailing: IconButton(
+                        onPressed: (){
+                          snapshot.data!.put('name', 'Sabuj Atik Tech');
+                          snapshot.data!.put('age', '28');
+
+                          setState(() {
+
+                          });
+                        },
+                        icon: Icon(Icons.edit),
+                      ),
                     ),
 
                     // Text(snapshot.data!.get('name').toString()),
@@ -37,7 +48,7 @@ class _HomePageState extends State<HomePage> {
               }),
 
           FutureBuilder(
-              future: Hive.openBox('Social Site'),
+              future: Hive.openBox('Site'),
               builder: (context, snapshot){
                 return Column(
                   children: [
@@ -53,17 +64,17 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async{
           
-          var box = await Hive.openBox('Sabuj Atik');
-          var box2 = await Hive.openBox('Social Site');
+          var box = await Hive.openBox('Sabuj');
+          var box2 = await Hive.openBox('Site');
 
           box2.put('linkedIn', 'atik-sabuj');
 
-          box.put('name', 'Sabuj Atik');
+          box.put('name', 'Sabuj');
           box.put('age', '27');
 
           box.put('details', {
             'pro' : 'developer',
-            'salary' : '30k'
+            'post' : 'engineer'
           });
 
           print(box.get('name'));
