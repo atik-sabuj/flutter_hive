@@ -35,6 +35,18 @@ class _HomePageState extends State<HomePage> {
                   ],
                 );
               }),
+
+          FutureBuilder(
+              future: Hive.openBox('Social Site'),
+              builder: (context, snapshot){
+                return Column(
+                  children: [
+                    ListTile(
+                      title: Text(snapshot.data!.get('linkedIn').toString()),
+                    ),
+                  ],
+                );
+              }),
         ],
       ),
 
@@ -42,6 +54,9 @@ class _HomePageState extends State<HomePage> {
         onPressed: () async{
           
           var box = await Hive.openBox('Sabuj Atik');
+          var box2 = await Hive.openBox('Social Site');
+
+          box2.put('linkedIn', 'atik-sabuj');
 
           box.put('name', 'Sabuj Atik');
           box.put('age', '27');
