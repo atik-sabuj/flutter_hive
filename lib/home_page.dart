@@ -69,28 +69,62 @@ class _HomePageState extends State<HomePage> {
 
       floatingActionButton: FloatingActionButton(
         onPressed: () async{
-          
-          var box = await Hive.openBox('Sabuj');
-          var box2 = await Hive.openBox('Site');
-
-          box2.put('linkedIn', 'atik-sabuj');
-
-          box.put('name', 'Sabuj');
-          box.put('age', '25');
-
-          box.put('details', {
-            'pro' : 'developer',
-            'post' : 'engineer'
-          });
-
-          print(box.get('name'));
-          print(box.get('age'));
-          print(box.get('details'));
-          //print(box.get('details')['pro']);
-
+          _showMyDialog();
         },
         child: Icon(Icons.add),
       ),
     );
   }
+
+
+Future<void> _showMyDialog()async {
+
+  return showDialog(
+      context: context,
+      builder: (context){
+        return AlertDialog(
+          title: Text('Add Notes'),
+          actions: [
+            TextButton(onPressed: (){
+              Navigator.pop(context);
+            }, child: Text('Add')),
+
+            TextButton(onPressed: (){
+              Navigator.pop(context);
+            }, child: Text('Add')),
+          ],
+        );
+      }
+  );
+    }
 }
+
+
+
+
+
+
+// floatingActionButton: FloatingActionButton(
+// onPressed: () async{
+//
+// var box = await Hive.openBox('Sabuj');
+// var box2 = await Hive.openBox('Site');
+//
+// box2.put('linkedIn', 'atik-sabuj');
+//
+// box.put('name', 'Sabuj');
+// box.put('age', '25');
+//
+// box.put('details', {
+// 'pro' : 'developer',
+// 'post' : 'engineer'
+// });
+//
+// print(box.get('name'));
+// print(box.get('age'));
+// print(box.get('details'));
+// //print(box.get('details')['pro']);
+//
+// },
+// child: Icon(Icons.add),
+// ),
