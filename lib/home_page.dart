@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hive/models/notes_model.dart';
 import 'package:hive/hive.dart';
 
 class HomePage extends StatefulWidget {
@@ -9,6 +10,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  final titleController = TextEditingController();
+  final descriptionController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,11 +44,22 @@ Future<void> _showMyDialog()async {
         return AlertDialog(
           title: Text('Add Notes'),
           content: SingleChildScrollView(
-            child: ListView(
+            child: Column(
               children: [
                 TextFormField(
+                  controller: titleController,
                   decoration: InputDecoration(
                     hintText: 'Enter title',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+
+                SizedBox(height: 20,),
+
+                TextFormField(
+                  controller: descriptionController,
+                  decoration: InputDecoration(
+                    hintText: 'Enter description',
                     border: OutlineInputBorder(),
                   ),
                 ),
@@ -53,9 +69,12 @@ Future<void> _showMyDialog()async {
           actions: [
             TextButton(onPressed: (){
               Navigator.pop(context);
-            }, child: Text('Add')),
+            }, child: Text('Cancel')),
 
             TextButton(onPressed: (){
+              final data = NotesModel(
+                  title: titleController.text,
+                  description: descriptionController.text);
               Navigator.pop(context);
             }, child: Text('Add')),
           ],
@@ -68,29 +87,3 @@ Future<void> _showMyDialog()async {
 
 
 
-
-
-// floatingActionButton: FloatingActionButton(
-// onPressed: () async{
-//
-// var box = await Hive.openBox('Sabuj');
-// var box2 = await Hive.openBox('Site');
-//
-// box2.put('linkedIn', 'atik-sabuj');
-//
-// box.put('name', 'Sabuj');
-// box.put('age', '25');
-//
-// box.put('details', {
-// 'pro' : 'developer',
-// 'post' : 'engineer'
-// });
-//
-// print(box.get('name'));
-// print(box.get('age'));
-// print(box.get('details'));
-// //print(box.get('details')['pro']);
-//
-// },
-// child: Icon(Icons.add),
-// ),
