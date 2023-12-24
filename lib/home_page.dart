@@ -119,7 +119,14 @@ class _HomePageState extends State<HomePage> {
                 Navigator.pop(context);
               }, child: Text('Cancel')),
 
-              TextButton(onPressed: (){
+              TextButton(onPressed: () async{
+                notesModel.title = titleController.text.toString();
+                notesModel.description = descriptionController.text.toString();
+
+                await notesModel.save();
+
+                titleController.clear();
+                descriptionController.clear();
 
                 Navigator.pop(context);
 
