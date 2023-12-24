@@ -75,6 +75,7 @@ Future<void> _showMyDialog()async {
               final data = NotesModel(
                   title: titleController.text,
                   description: descriptionController.text);
+
               Navigator.pop(context);
             }, child: Text('Add')),
           ],
