@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hive/boxes/boxes.dart';
 import 'package:flutter_hive/models/notes_model.dart';
 import 'package:hive/hive.dart';
 
@@ -75,6 +76,16 @@ Future<void> _showMyDialog()async {
               final data = NotesModel(
                   title: titleController.text,
                   description: descriptionController.text);
+
+              final box = Boxes.getData();
+              box.add(data);
+
+              data.save();
+
+              print(box);
+
+              titleController.clear();
+              descriptionController.clear();
 
               Navigator.pop(context);
             }, child: Text('Add')),
