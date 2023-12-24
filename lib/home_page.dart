@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hive/boxes/boxes.dart';
 import 'package:flutter_hive/models/notes_model.dart';
 import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,11 +23,24 @@ class _HomePageState extends State<HomePage> {
         title: Text('Flutter Hive Database'),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-        ],
+      body: ValueListenableBuilder<Box<NotesModel>>(
+        valueListenable: Boxes.getData().listenable(),
+        builder: (context, box, _){
+          var data = box.values.toList().cast<NotesModel>();
+          return ListView.builder(
+            itemCount: box.length,
+              itemBuilder: (context, index){
+                return Card(
+                  child: Column(
+                    children: [
+                      Text(data[index].title.toString())
+                    ],
+                  ),
+                );
+              }
+          );
+        },
       ),
-
       floatingActionButton: FloatingActionButton(
         onPressed: () async{
           _showMyDialog();
