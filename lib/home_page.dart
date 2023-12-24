@@ -23,31 +23,6 @@ class _HomePageState extends State<HomePage> {
               builder: (context, snapshot){
                 return Column(
                   children: [
-                    ListTile(
-                      title: Text(snapshot.data!.get('name').toString()),
-                      subtitle: Text(snapshot.data!.get('age').toString()),
-                      trailing: IconButton(
-                        onPressed: (){
-                          snapshot.data!.put('name', 'Sabuj Atik Tech');
-                          snapshot.data!.put('age', '27');
-
-                          //snapshot.data!.delete('name');    // For Data Delete
-
-
-                          setState(() {
-
-                          });
-                        },
-                        icon: Icon(Icons.edit),
-
-                        //icon: Icon(Icons.delete),     // For Data Delete
-
-                      ),
-                    ),
-
-                    // Text(snapshot.data!.get('name').toString()),
-                    // Text(snapshot.data!.get('age').toString()),
-                    // Text(snapshot.data!.get('details').toString()),
 
                   ],
                 );
@@ -69,28 +44,74 @@ class _HomePageState extends State<HomePage> {
 
       floatingActionButton: FloatingActionButton(
         onPressed: () async{
-          
-          var box = await Hive.openBox('Sabuj');
-          var box2 = await Hive.openBox('Site');
-
-          box2.put('linkedIn', 'atik-sabuj');
-
-          box.put('name', 'Sabuj');
-          box.put('age', '25');
-
-          box.put('details', {
-            'pro' : 'developer',
-            'post' : 'engineer'
-          });
-
-          print(box.get('name'));
-          print(box.get('age'));
-          print(box.get('details'));
-          //print(box.get('details')['pro']);
-
+          _showMyDialog();
         },
         child: Icon(Icons.add),
       ),
     );
   }
+
+
+Future<void> _showMyDialog()async {
+
+  return showDialog(
+      context: context,
+      builder: (context){
+        return AlertDialog(
+          title: Text('Add Notes'),
+          content : SingleChildScrollView(
+            child: ListView(
+              children: [
+                TextFormField(
+                  decoration: InputDecoration(
+                    hintText: 'Enter title',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(onPressed: (){
+              Navigator.pop(context);
+            }, child: Text('Add')),
+
+            TextButton(onPressed: (){
+              Navigator.pop(context);
+            }, child: Text('Add')),
+          ],
+        );
+      }
+  );
+    }
 }
+
+
+
+
+
+
+// floatingActionButton: FloatingActionButton(
+// onPressed: () async{
+//
+// var box = await Hive.openBox('Sabuj');
+// var box2 = await Hive.openBox('Site');
+//
+// box2.put('linkedIn', 'atik-sabuj');
+//
+// box.put('name', 'Sabuj');
+// box.put('age', '25');
+//
+// box.put('details', {
+// 'pro' : 'developer',
+// 'post' : 'engineer'
+// });
+//
+// print(box.get('name'));
+// print(box.get('age'));
+// print(box.get('details'));
+// //print(box.get('details')['pro']);
+//
+// },
+// child: Icon(Icons.add),
+// ),

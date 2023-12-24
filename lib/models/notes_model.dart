@@ -18,7 +18,7 @@ class NotesModel {
 
 
 
-// Run this code in Terminal for build .g model --> flutter packages pub run build_runner build
+// Run this code in Terminal for build generated .g model --> flutter packages pub run build_runner build
 
 
 
