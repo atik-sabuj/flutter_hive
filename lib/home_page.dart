@@ -45,13 +45,17 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               Text(data[index].title.toString(), style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
                               Spacer(),
-                              Icon(Icons.edit),
+                              InkWell(
+                                onTap: (){
+                                  delete(data[index]);
+                                },
+                                  child: Icon(Icons.delete, color: Colors.red,)),
                               SizedBox(width: 15,),
-                              Icon(Icons.delete, color: Colors.red,),
+                              Icon(Icons.edit),
 
                             ],
                           ),
-                          Text(data[index].description.toString(), style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                          Text(data[index].description.toString(), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),),
                         ],
                       ),
                     ),
@@ -70,7 +74,69 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  void delete(NotesModel notesModel) async{
+    await notesModel.delete();
+  }
 
+  Future<void> _editMyDialog()async {
+
+    return showDialog(
+        context: context,
+        builder: (context){
+          return AlertDialog(
+            title: Text('Edit Notes'),
+            content: SingleChildScrollView(
+              child: Column(
+                children: [
+                  TextFormField(
+                    controller: titleController,
+                    decoration: InputDecoration(
+                      hintText: 'Enter title',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+
+                  SizedBox(height: 20,),
+
+                  TextFormField(
+                    controller: descriptionController,
+                    decoration: InputDecoration(
+                      hintText: 'Enter description',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(onPressed: (){
+                Navigator.pop(context);
+              }, child: Text('Cancel')),
+
+              TextButton(onPressed: (){
+                final data = NotesModel(
+                    title: titleController.text,
+                    description: descriptionController.text);
+
+                final box = Boxes.getData();
+                box.add(data);
+
+                data.save();
+
+                print(box);
+
+                titleController.clear();
+                descriptionController.clear();
+
+                Navigator.pop(context);
+              }, child: Text('Add')),
+            ],
+          );
+        }
+    );
+  }
+
+  
 Future<void> _showMyDialog()async {
 
   return showDialog(
