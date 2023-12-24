@@ -30,17 +30,21 @@ class _HomePageState extends State<HomePage> {
           return ListView.builder(
             itemCount: box.length,
               reverse: true,
+              shrinkWrap: true,
               itemBuilder: (context, index){
-                return Card(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10 ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(data[index].title.toString()),
-                        Text(data[index].description.toString()),
-                      ],
+                return Container(
+                  height: 100,
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10 ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(data[index].title.toString()),
+                          Text(data[index].description.toString()),
+                        ],
+                      ),
                     ),
                   ),
                 );
