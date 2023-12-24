@@ -41,8 +41,17 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(data[index].title.toString()),
-                          Text(data[index].description.toString()),
+                          Row(
+                            children: [
+                              Text(data[index].title.toString(), style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
+                              Spacer(),
+                              Icon(Icons.edit),
+                              SizedBox(width: 15,),
+                              Icon(Icons.delete, color: Colors.red,),
+
+                            ],
+                          ),
+                          Text(data[index].description.toString(), style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
                         ],
                       ),
                     ),
