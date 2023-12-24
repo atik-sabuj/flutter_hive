@@ -18,52 +18,6 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: [
-          FutureBuilder(
-            future: Hive.openBox('Sabuj'),
-              builder: (context, snapshot){
-                return Column(
-                  children: [
-                    ListTile(
-                      title: Text(snapshot.data!.get('name').toString()),
-                      subtitle: Text(snapshot.data!.get('age').toString()),
-                      trailing: IconButton(
-                        onPressed: (){
-                          snapshot.data!.put('name', 'Sabuj Atik Tech');
-                          snapshot.data!.put('age', '27');
-
-                          //snapshot.data!.delete('name');    // For Data Delete
-
-
-                          setState(() {
-
-                          });
-                        },
-                        icon: Icon(Icons.edit),
-
-                        //icon: Icon(Icons.delete),     // For Data Delete
-
-                      ),
-                    ),
-
-                    // Text(snapshot.data!.get('name').toString()),
-                    // Text(snapshot.data!.get('age').toString()),
-                    // Text(snapshot.data!.get('details').toString()),
-
-                  ],
-                );
-              }),
-
-          FutureBuilder(
-              future: Hive.openBox('Site'),
-              builder: (context, snapshot){
-                return Column(
-                  children: [
-                    ListTile(
-                      title: Text(snapshot.data!.get('linkedIn').toString()),
-                    ),
-                  ],
-                );
-              }),
         ],
       ),
 
@@ -84,6 +38,18 @@ Future<void> _showMyDialog()async {
       builder: (context){
         return AlertDialog(
           title: Text('Add Notes'),
+          content: SingleChildScrollView(
+            child: ListView(
+              children: [
+                TextFormField(
+                  decoration: InputDecoration(
+                    hintText: 'Enter title',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ],
+            ),
+          ),
           actions: [
             TextButton(onPressed: (){
               Navigator.pop(context);
