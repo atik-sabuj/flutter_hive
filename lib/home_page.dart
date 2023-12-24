@@ -51,7 +51,11 @@ class _HomePageState extends State<HomePage> {
                                 },
                                   child: Icon(Icons.delete, color: Colors.red,)),
                               SizedBox(width: 15,),
-                              Icon(Icons.edit),
+                              InkWell(
+                                onTap: (){
+                                  _editMyDialog(data[index], data[index].title.toString(), data[index].description.toString());
+                                },
+                                  child: Icon(Icons.edit)),
 
                             ],
                           ),
@@ -78,8 +82,10 @@ class _HomePageState extends State<HomePage> {
     await notesModel.delete();
   }
 
-  Future<void> _editMyDialog()async {
+  Future<void> _editMyDialog(NotesModel notesModel, String title, String description)async {
 
+    titleController.text = title;
+    descriptionController.text = description;
     return showDialog(
         context: context,
         builder: (context){
@@ -114,22 +120,10 @@ class _HomePageState extends State<HomePage> {
               }, child: Text('Cancel')),
 
               TextButton(onPressed: (){
-                final data = NotesModel(
-                    title: titleController.text,
-                    description: descriptionController.text);
-
-                final box = Boxes.getData();
-                box.add(data);
-
-                data.save();
-
-                print(box);
-
-                titleController.clear();
-                descriptionController.clear();
 
                 Navigator.pop(context);
-              }, child: Text('Add')),
+
+              }, child: Text('Edit')),
             ],
           );
         }
@@ -180,7 +174,7 @@ Future<void> _showMyDialog()async {
               final box = Boxes.getData();
               box.add(data);
 
-              data.save();
+              //data.save();
 
               print(box);
 
